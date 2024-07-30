@@ -15,23 +15,20 @@ import static org.testng.Assert.assertEquals;
 
 public class LoginInvalido {
 
-    private BrowserConfig browserConfig = new BrowserConfig();
-    private AndroidDriver driver;
     private LoginPage loginPage;
     private static final Logger logger = Logger.getLogger(LoginInvalido.class.getName());
 
 
     @BeforeMethod
     public void setUp() throws MalformedURLException {
-        driver = browserConfig.setUp();
-        loginPage = new LoginPage(driver);
+        loginPage = new LoginPage(BrowserConfig.getDriver());
     }
 
     @Test(testName = "Teste de login com user inváldio e senha inválida")
     public void loginUserInvalido() {
         logger.info("Iniciando o teste");
         loginPage
-                .login("test@test.com", "secret_sauce");
+                .realizarLogin("test@test.com", "secret_sauce");
         assertEquals(loginPage.erroLogin("Username and password do not match any user in this service."), "Username and password do not match any user in this service.");
         logger.info("Teste de login com user inváldio e senha válida foi executado com sucesso");
 
@@ -41,7 +38,7 @@ public class LoginInvalido {
     public void loginSenhaInvalida() {
         logger.info("Iniciando o teste");
         loginPage
-                .login("standard_user", "123456");
+                .realizarLogin("standard_user", "123456");
         assertEquals(loginPage.erroLogin("Username and password do not match any user in this service."), "Username and password do not match any user in this service.");
         logger.info("Teste de login com user válido e senha inválida foi executado com sucesso");
 
@@ -51,7 +48,7 @@ public class LoginInvalido {
     public void loginUserNameVazio() {
         logger.info("Iniciando o teste ");
         loginPage
-                .login("", "secret_sauce");
+                .realizarLogin("", "secret_sauce");
         assertEquals(loginPage.erroLogin("Username is required"), "Username is required");
 
         logger.info("O teste de login validar login nome em branco foi executado com sucesso");
@@ -61,13 +58,15 @@ public class LoginInvalido {
     public void loginSenhaVazia() {
         logger.info("Iniciando o teste");
         loginPage
-                .login("standard_user", "");
+                .realizarLogin("standard_user", "");
         assertEquals(loginPage.erroLogin("Password is required"), "Password is required");
         logger.info("O teste de login validar login senha em branco foi executado com sucesso");
     }
 
     @AfterMethod
     public void tearDown() {
-        driver.quit();
+        BrowserConfig
+                .tearDown();
+
     }
 }
