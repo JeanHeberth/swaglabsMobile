@@ -43,7 +43,7 @@ jobs:
 
       - name: Start emulator
         run: |
-          adb start-emulator -avd test -no-window -no-audio -no-boot-anim &
+          emulator -avd test -no-window -no-audio -no-boot-anim &
           adb wait-for-device
           adb shell timeout 180 sh -c 'until adb shell getprop sys.boot_completed | grep -m 1 "1"; do sleep 10; done'
           adb shell input keyevent 82
