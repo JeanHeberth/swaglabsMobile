@@ -6,19 +6,17 @@ import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage extends LoginElements {
 
-    AndroidDriver driver;
-
 
     public LoginPage(AndroidDriver driver) {
         PageFactory.initElements(driver, this);
     }
 
 
-    public ProdutoPage login(String email, String senha) {
+    public HomePage realizarLogin(String email, String senha) {
         username.sendKeys(email);
         password.sendKeys(senha);
         btnLogin.click();
-        return new ProdutoPage(driver);
+        return new HomePage();
     }
 
     public String erroLogin(String mensagem) {

@@ -9,9 +9,9 @@ import java.time.Duration;
 
 public class BrowserConfig {
 
-    private AndroidDriver driver;
+    private static AndroidDriver driver;
 
-    public AndroidDriver setUp() throws MalformedURLException {
+    public static void setUp() throws MalformedURLException {
         DesiredCapabilities options = new DesiredCapabilities();
         options.setCapability("platformName", "Android");
         options.setCapability("appium:deviceName", "emulator-5554");
@@ -22,6 +22,13 @@ public class BrowserConfig {
         URL url = new URL("http://localhost:4723/");
         driver = new AndroidDriver(url, options);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+    }
+
+    public static void tearDown() {
+        driver.quit();
+    }
+
+    public static AndroidDriver getDriver() {
         return driver;
     }
 }
