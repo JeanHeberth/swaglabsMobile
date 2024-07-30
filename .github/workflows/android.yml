@@ -33,10 +33,10 @@ jobs:
         run: appium &
 
       - name: Download Android system image
-        run: sdkmanager --install "system-images;android-30;google_apis;x86_64"
+        run: yes | sdkmanager --install "system-images;android-30;google_apis;x86_64"
 
       - name: Create Android emulator
-        run: avdmanager create avd -n test -k "system-images;android-30;google_apis;x86_64"
+        run: echo no | avdmanager create avd -n test -k "system-images;android-30;google_apis;x86_64"
 
       - name: Start emulator
         run: |
