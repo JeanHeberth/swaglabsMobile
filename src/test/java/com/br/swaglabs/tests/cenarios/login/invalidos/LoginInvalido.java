@@ -3,15 +3,15 @@ package com.br.swaglabs.tests.cenarios.login.invalidos;
 import com.br.swaglabs.config.BrowserConfig;
 import com.br.swaglabs.page.LoginPage;
 import io.appium.java_client.android.AndroidDriver;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
 import java.util.logging.Logger;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.testng.Assert.assertEquals;
+
 
 public class LoginInvalido {
 
@@ -21,14 +21,13 @@ public class LoginInvalido {
     private static final Logger logger = Logger.getLogger(LoginInvalido.class.getName());
 
 
-    @BeforeEach
+    @BeforeMethod
     public void setUp() throws MalformedURLException {
         driver = browserConfig.setUp();
         loginPage = new LoginPage(driver);
     }
 
-    @Test
-    @DisplayName("Teste de login com user inváldio e senha válida")
+    @Test(testName = "Teste de login com user inváldio e senha inválida")
     public void loginUserInvalido() {
         logger.info("Iniciando o teste");
         loginPage
@@ -38,8 +37,7 @@ public class LoginInvalido {
 
     }
 
-    @Test
-    @DisplayName("Teste de login com user válido e senha inválida")
+    @Test(testName = "Teste de login com user inváldio e senha inválida")
     public void loginSenhaInvalida() {
         logger.info("Iniciando o teste");
         loginPage
@@ -49,8 +47,7 @@ public class LoginInvalido {
 
     }
 
-    @Test
-    @DisplayName("Teste validar login com nome em branco")
+    @Test(testName = "Teste validar login com nome em branco")
     public void loginUserNameVazio() {
         logger.info("Iniciando o teste ");
         loginPage
@@ -60,8 +57,7 @@ public class LoginInvalido {
         logger.info("O teste de login validar login nome em branco foi executado com sucesso");
     }
 
-    @Test
-    @DisplayName("Teste validar login com senha em branco")
+    @Test(testName = "Teste validar login com senha em branco")
     public void loginSenhaVazia() {
         logger.info("Iniciando o teste");
         loginPage
@@ -70,7 +66,7 @@ public class LoginInvalido {
         logger.info("O teste de login validar login senha em branco foi executado com sucesso");
     }
 
-    @AfterEach
+    @AfterMethod
     public void tearDown() {
         driver.quit();
     }
