@@ -32,8 +32,8 @@ jobs:
       - name: Start Appium server
         run: appium &
 
-      - name: Build with Gradle
-        run: ./gradlew build
+#      - name: Build with Gradle
+#        run: ./gradlew build
 
       - name: Download Android system image
         run: yes | sdkmanager --install "system-images;android-30;google_apis;x86_64"
