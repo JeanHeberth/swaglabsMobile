@@ -32,9 +32,6 @@ jobs:
       - name: Start Appium server
         run: appium &
 
-      - name: Build with Gradle
-        run: ./gradlew build
-
       - name: Create Android emulator
         run: avdmanager create avd -n test -k "system-images;android-30;google_apis;x86_64"
 
@@ -53,4 +50,7 @@ jobs:
           name: test-reports
           path: build/reports/tests/test
 
-    
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Build with Gradle
+        run: ./gradlew build
