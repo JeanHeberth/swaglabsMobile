@@ -20,7 +20,7 @@ public class BrowserConfig {
         options.setCapability("appium:appActivity", "com.swaglabsmobileapp.SplashActivity");
         options.setCapability("appium:app", "/Users/jeanhebert/Documents/apksParaEstudosComAppium/SauceLabs.apk");
         driver = new AndroidDriver(new URL("http://localhost:4723/"), options);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         return driver;
     }
 }
