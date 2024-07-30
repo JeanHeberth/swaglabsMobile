@@ -42,7 +42,14 @@ jobs:
         run: echo no | avdmanager create avd -n test -k "system-images;android-30;google_apis;x86_64"
 
       - name: Set up emulator path
-        run: echo "export PATH=\$ANDROID_HOME/emulator:\$PATH" >> $GITHUB_ENV
+        run: echo "export PATH=\$ANDROID_HOME/emulator:\$ANDROID_HOME/tools:\$ANDROID_HOME/tools/bin:\$ANDROID_HOME/platform-tools:\$PATH" >> $GITHUB_ENV
+
+      - name: Print PATH
+        run: echo $PATH
+
+      - name: List emulator files
+        run: ls $ANDROID_HOME/emulator
+
 
       - name: Start emulator
         run: |
@@ -50,19 +57,19 @@ jobs:
           adb wait-for-device
           timeout 180 sh -c 'until adb shell getprop sys.boot_completed | grep -m 1 "1"; do sleep 10; done'
           adb shell input keyevent 82
-          
-          - name: Run tests
-          run: ./gradlew test
-          
-          - name: Archive test reports
-          uses: actions/upload-artifact@v2
-          with:
+
+      - name: Print emulator status
+        run: adb shell getprop sys.boot_completed
+
+      - name: Print running devices
+        run: adb devices
+
+      - name: Run tests
+        run: ./gradlew test
+
+      - name: Archive test reports
+        uses: actions/upload-artifact@v2
+        with:
           name: test-reports
           path: build/reports/tests/test
 
-
-      - name: Print PATH
-        run: echo $PATH
-
-#      - name: Print ANDROID_HOME
-#        run: echo $ANDROID_HOME
