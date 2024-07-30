@@ -32,6 +32,9 @@ jobs:
       - name: Start Appium server
         run: appium &
 
+      - name: Build with Gradle
+        run: ./gradlew build
+
       - name: Download Android system image
         run: yes | sdkmanager --install "system-images;android-30;google_apis;x86_64"
 
@@ -40,8 +43,9 @@ jobs:
 
       - name: Start emulator
         run: |
-          emulator -avd test -no-window -no-audio &
+          nohup emulator -avd test -no-window -no-audio -no-boot-anim &
           adb wait-for-device
+          adb shell timeout 180 sh -c 'until adb shell getprop sys.boot_completed | grep -m 1 "1"; do sleep 10; done'
           adb shell input keyevent 82
           
           - name: Run tests
@@ -54,6 +58,8 @@ jobs:
           path: build/reports/tests/test
 
 
-      - name: Build with Gradle
-        run: ./gradlew build
+      - name: Print emulator results
+        run: adb shell getprop sys.boot_completed
 
+      - name: Print running devices
+        run: adb devices
