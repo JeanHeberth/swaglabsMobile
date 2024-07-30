@@ -19,7 +19,8 @@ public class BrowserConfig {
         options.setCapability("appium:appPackage", "com.swaglabsmobileapp");
         options.setCapability("appium:appActivity", "com.swaglabsmobileapp.SplashActivity");
         options.setCapability("appium:app", "/Users/jeanhebert/Documents/apksParaEstudosComAppium/SauceLabs.apk");
-        driver = new AndroidDriver(new URL("http://localhost:4723/"), options);
+        URL url = new URL("http://localhost:4723/");
+        driver = new AndroidDriver(url, options);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         return driver;
     }
