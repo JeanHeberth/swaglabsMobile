@@ -1,8 +1,9 @@
-package com.br.swaglabs.tests.cenarios.login.invalidos;
+package com.br.swaglabs.tests.cenarios.login;
 
 import com.br.swaglabs.config.BrowserConfig;
 import com.br.swaglabs.page.LoginPage;
-import io.appium.java_client.android.AndroidDriver;
+import com.br.swaglabs.tests.base.BaseTest;
+import com.br.swaglabs.utils.PropertiesReader;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -12,16 +13,27 @@ import java.util.logging.Logger;
 
 import static org.testng.Assert.assertEquals;
 
+public class LoginValido extends BaseTest {
 
-public class LoginInvalido {
 
     private LoginPage loginPage;
-    private static final Logger logger = Logger.getLogger(LoginInvalido.class.getName());
+    private static final Logger logger = Logger.getLogger(LoginValido.class.getName());
 
 
     @BeforeMethod
     public void setUp() throws MalformedURLException {
         loginPage = new LoginPage(BrowserConfig.getDriver());
+    }
+
+    @Test(testName = "Teste de login com user e senha válidos")
+    public void loginValido() {
+        var nome = PropertiesReader.get("username");
+        var senha = PropertiesReader.get("password");
+        logger.info("Iniciando o teste");
+        loginPage
+                .realizarLogin(nome, senha);
+        assertEquals(loginPage.sucessLogin("PRODUCTS"), "PRODUCTS");
+
     }
 
     @Test(testName = "Teste de login com user inváldio e senha inválida")
@@ -65,8 +77,8 @@ public class LoginInvalido {
 
     @AfterMethod
     public void tearDown() {
+        logger.info("O teste de login com usuário e senha foi executado com sucesso");
         BrowserConfig
                 .tearDown();
-
     }
 }

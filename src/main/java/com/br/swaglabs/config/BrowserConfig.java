@@ -1,5 +1,6 @@
 package com.br.swaglabs.config;
 
+import com.br.swaglabs.utils.PropertiesReader;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
@@ -19,7 +20,7 @@ public class BrowserConfig {
         options.setCapability("appium:appPackage", "com.swaglabsmobileapp");
         options.setCapability("appium:appActivity", "com.swaglabsmobileapp.SplashActivity");
         options.setCapability("appium:app", "/Users/jeanhebert/Documents/apksParaEstudosComAppium/SauceLabs.apk");
-        URL url = new URL("http://localhost:4723/");
+        URL url = new URL(PropertiesReader.get("base_url"));
         driver = new AndroidDriver(url, options);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
     }

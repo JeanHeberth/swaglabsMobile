@@ -20,12 +20,21 @@ public class LoginPage extends LoginElements {
     }
 
     public String erroLogin(String mensagem) {
-        if (mensagem.equals("Username and password do not match any user in this service."))
-            return "Username and password do not match any user in this service.";
-        if (mensagem.equals("Username is required"))
-            return "Username is required";
-        if (mensagem.equals("Password is required"))
-            return "Password is required";
+        switch (mensagem) {
+            case "Username and password do not match any user in this service.":
+                return "Username and password do not match any user in this service.";
+            case "Username is required":
+                return "Username is required";
+            case "Password is required":
+                return "Password is required";
+            default:
+                return "";
+        }
+    }
+
+
+    public String sucessLogin(String mensagem) {
+        if (mensagem.equals("PRODUCTS")) return "PRODUCTS";
         return "";
     }
 }
